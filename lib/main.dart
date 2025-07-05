@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:weather_and_news_app/core/theme/app_theme.dart';
 import 'package:weather_and_news_app/controllers/weather_provider.dart';
@@ -13,6 +14,13 @@ import 'package:weather_and_news_app/screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await dotenv.load();
+  } catch (e) {
+    debugPrint('Error loading .env file: $e');
+  }
+
 
   await Hive.initFlutter();
   await Hive.openBox('newsBox');
